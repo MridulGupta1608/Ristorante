@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardImgOverlay, CardText, CardImg, CardTitle  } from 'reactstrap';
+import { Card, CardBody, CardText, CardImg, CardTitle  } from 'reactstrap';
 
 class DishDetail extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
         
-    }
+    // }
 
     renderComments(comments) {
         if(comments == null) {
@@ -64,8 +64,9 @@ class DishDetail extends Component {
     render() {
         
         const dish = this.props.dish;
+        const comments = this.props.comments;
         const dishItem  = this.renderDish(dish)
-        const commentItem = this.renderComments(dish.comments)
+        const commentItem = this.renderComments(comments)
         return (
           <div className="container">
             <div className="row">
