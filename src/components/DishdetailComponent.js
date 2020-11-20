@@ -32,8 +32,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
             handleSubmit(values) {
                 this.toggleModal();
-                console.log('Current State is: ' + JSON.stringify(values));
-                alert('Current State is: ' + JSON.stringify(values));    
+                this.props.addComment(this.props.dishId, values.rating, values.author,values.comment);   
             }
 
 
@@ -72,14 +71,14 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
                                     <div className="form-group">
                                     <Row>
-                                        <label htmlFor="Name">Your Name:</label>
+                                        <label htmlFor="author">Your Name:</label>
                                     </Row>
                                     <Row>
                                         <Control.text
-                                            model=".name"
+                                            model=".author"
                                             className="form-control"
                                             placeholder="Your Name"
-                                            id="name"
+                                            id="author"
                                             validators = {{
                                                 required,
                                                 maxLength : maxLength(15),
@@ -87,7 +86,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                         
                                         <Errors 
                                             className="text-danger"
-                                            model=".name"
+                                            model=".author"
                                             show="touched"
                                             messages={{
                                                 required :' Required ',
@@ -135,7 +134,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
 
 
-    function RenderComments({comments}) {
+    function RenderComments({comments,addComment, dishId}) {
         if(comments == null) {
             return(
                 <div>
@@ -157,7 +156,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 <div className="col-12 col-md-5 m-1">
                     <h4> Comments </h4>
                     <ul className="list-unstyled">{comment}</ul>
-                    <CommentForm/>
+                    <CommentForm dishId={dishId} addComment={addComment} />
                 </div>
             )
         }
@@ -210,7 +209,9 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 </div>
             <div className="row">
             <RenderDish dish={props.dish}/>
-            <RenderComments comments={props.comments}/>
+            <RenderComments comments={props.comments}
+                addComment={props.addComment}
+                dishId= {props.dish.id}/>
             
             </div>
           </div>
